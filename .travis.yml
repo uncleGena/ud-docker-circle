@@ -7,4 +7,16 @@ before_install:
 
 script:
   - docker run kudriavtsevandrew/ud-docker-travis-aws npm run test -- --coverage
-  
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "ud-docker-travis"
+  env: "UdDockerTravis-env"
+  bucket_name: "elasticbeanstalk-us-east-2-160807484680"
+  bucker_path: "ud-docker-travis"
+  on:
+    branch: master
+  access_key:id: "$AWS_ACCESS_KEY"
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
